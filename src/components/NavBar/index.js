@@ -1,6 +1,6 @@
-import React from "react";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Navbar,
   NavbarToggler,
@@ -17,7 +17,7 @@ import {
   InputGroupText,
   FormInput,
   Collapse
-} from "shards-react";
+} from 'shards-react';
 
 export default class NavExample extends React.Component {
   constructor(props) {
@@ -40,7 +40,6 @@ export default class NavExample extends React.Component {
       }
     });
   }
-
   toggleNavbar() {
     this.setState({
       ...this.state,
