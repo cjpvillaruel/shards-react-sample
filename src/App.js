@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "shards-ui/dist/css/shards.min.css";
-import NavBar from './components/NavBar'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'shards-ui/dist/css/shards.min.css';
+import NavBar from './components/NavBar';
 
 class App extends Component {
   render() {
