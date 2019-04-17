@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {
   Form,
   FormInput,
@@ -10,31 +10,92 @@ import {
   Button
 } from 'shards-react';
 
+import FormValidator from '../../utils/FormValidator';
 import * as ROUTES from '../../constants/routes';
+import { withFirebase } from '../Firebase';
 
 const SignUpPage = () => (
   <div>
-    <SignUpForm />
+    <SignUpForm />}
   </div>
 );
 
-const INITIAL_STATE = {
-  firstName: '',
-  lastName: '',
-  username: '',
-  email: '',
-  password: '',
-  error: null
-};
+const INITIAL_STATE = {};
 
-class SignUpForm extends Component {
+class SignUpFormBase extends Component {
   constructor(props) {
     super(props);
+    this.validator = new FormValidator([
+      {
+        field: 'email',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Email is required'
+      },
+      {
+        field: 'firstName',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Firstname is required'
+      },
+      {
+        field: 'lastName',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Lastname is required'
+      },
+      {
+        field: 'username',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Username is required'
+      },
+      {
+        field: 'password',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Password is required'
+      },
+      {
+        field: 'confirmPassword',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Password confirmation is required'
+      }
+    ]);
 
-    this.state = { ...INITIAL_STATE };
+    this.state = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      error: null,
+      errors: {},
+      validation: this.validator.valid(),
+      submitted: false
+    };
   }
 
-  onSubmit = event => {};
+  onSubmit = event => {
+    event.preventDefault();
+    const { email, password } = this.state;
+
+    const validation = this.validator.validate(this.state);
+    this.setState({ submitted: true });
+    if (validation.isValid) {
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, password)
+        .then(authUser => {
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.HOME);
+        })
+        .catch(error => {
+          this.setState({ error });
+        });
+    }
+  };
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -42,6 +103,11 @@ class SignUpForm extends Component {
 
   render() {
     const { username, email, password, confirmPassword, error } = this.state;
+    let validation = this.state.submitted // if the form has been submitted at least once
+      ? this.validator.validate(this.state) // then check validity every time we render
+      : this.state.validation; // otherwise just use what's in state
+
+    console.log(validation);
     return (
       <Card style={{ maxWidth: '400px', margin: '100px auto' }}>
         <CardHeader>
@@ -49,6 +115,9 @@ class SignUpForm extends Component {
         </CardHeader>
         <CardBody>
           <Form onSubmit={this.onSubmit}>
+            {error && (
+              <p style={{ color: '#8e1717' }}>{error && error.message}</p>
+            )}
             <FormGroup>
               <label htmlFor="first-name">First Name</label>
               <FormInput
@@ -56,6 +125,8 @@ class SignUpForm extends Component {
                 placeholder="John"
                 name="firstName"
                 onChange={this.onChange}
+                onBlur={this.validate}
+                invalid={validation.firstName.isInvalid}
               />
             </FormGroup>
             <FormGroup>
@@ -64,7 +135,10 @@ class SignUpForm extends Component {
                 id="last-name"
                 placeholder="Meyer"
                 name="lastName"
+                invalid={false}
                 onChange={this.onChange}
+                onBlur={this.validate}
+                invalid={validation.lastName.isInvalid}
               />
             </FormGroup>
             <FormGroup>
@@ -76,6 +150,8 @@ class SignUpForm extends Component {
                 name="email"
                 placeholder="jmayer@sample.com"
                 onChange={this.onChange}
+                onBlur={this.validate}
+                invalid={validation.email.isInvalid}
               />
             </FormGroup>
             <FormGroup>
@@ -86,6 +162,8 @@ class SignUpForm extends Component {
                 name="username"
                 placeholder="jmayer"
                 onChange={this.onChange}
+                onBlur={this.validate}
+                invalid={validation.username.isInvalid}
               />
             </FormGroup>
             <FormGroup>
@@ -97,6 +175,7 @@ class SignUpForm extends Component {
                 id="password"
                 placeholder="Password"
                 onChange={this.onChange}
+                invalid={validation.password.isInvalid}
               />
             </FormGroup>
             <FormGroup>
@@ -108,9 +187,9 @@ class SignUpForm extends Component {
                 id="confirm-password"
                 placeholder="Password"
                 onChange={this.onChange}
+                invalid={validation.password.isInvalid}
               />
             </FormGroup>
-
             <Button type="submit" pill style={{ marginTop: 20 }}>
               Register
             </Button>
@@ -126,6 +205,6 @@ const SignUpLink = () => (
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
-
+const SignUpForm = withRouter(withFirebase(SignUpFormBase));
 export { SignUpForm, SignUpLink };
 export default SignUpPage;
