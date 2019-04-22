@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
@@ -9,6 +10,7 @@ import NavBar from './components/NavBar';
 import * as ROUTES from './constants/routes';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUp';
+import { withAuthentication } from './components/Session';
 
 const App = () => {
   return (
@@ -23,4 +25,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withAuthentication(App);
