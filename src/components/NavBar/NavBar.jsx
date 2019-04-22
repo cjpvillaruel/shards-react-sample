@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,6 +20,9 @@ import {
   Collapse
 } from 'shards-react';
 
+import * as ROUTES from '../../constants/routes';
+import SignoutButton from '../SignoutButton';
+
 export default class NavExample extends React.Component {
   constructor(props) {
     super(props);
@@ -33,44 +37,35 @@ export default class NavExample extends React.Component {
   }
 
   toggleDropdown() {
-    this.setState({
-      ...this.state,
-      ...{
-        dropdownOpen: !this.state.dropdownOpen
-      }
-    });
+    const { dropdownOpen } = this.state;
+    this.setState({ dropdownOpen: !dropdownOpen });
   }
+
   toggleNavbar() {
-    this.setState({
-      ...this.state,
-      ...{
-        collapseOpen: !this.state.collapseOpen
-      }
-    });
+    const { collapseOpen } = this.state;
+    this.setState({ collapseOpen: !collapseOpen });
   }
 
   render() {
+    const { collapseOpen, dropdownOpen } = this.state;
     return (
       <Navbar type="dark" theme="primary" expand="md">
         <NavbarBrand href="#">Shards React</NavbarBrand>
         <NavbarToggler onClick={this.toggleNavbar} />
 
-        <Collapse open={this.state.collapseOpen} navbar>
+        <Collapse open={collapseOpen} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink active href="#">
-                Active
-              </NavLink>
+              <Link to={ROUTES.SIGN_IN}>
+                <NavLink active> Sign in </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
               <NavLink href="#" disabled>
                 Disabled
               </NavLink>
             </NavItem>
-            <Dropdown
-              open={this.state.dropdownOpen}
-              toggle={this.toggleDropdown}
-            >
+            <Dropdown open={dropdownOpen} toggle={this.toggleDropdown}>
               <DropdownToggle nav caret>
                 Dropdown
               </DropdownToggle>
@@ -83,14 +78,9 @@ export default class NavExample extends React.Component {
           </Nav>
 
           <Nav navbar className="ml-auto">
-            <InputGroup size="sm" seamless>
-              <InputGroupAddon type="prepend">
-                <InputGroupText>
-                  <FontAwesomeIcon icon={faSearch} />
-                </InputGroupText>
-              </InputGroupAddon>
-              <FormInput className="border-0" placeholder="Search..." />
-            </InputGroup>
+            <NavItem>
+              <SignoutButton />
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
