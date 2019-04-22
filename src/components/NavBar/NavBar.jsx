@@ -21,6 +21,7 @@ import {
 } from 'shards-react';
 
 import * as ROUTES from '../../constants/routes';
+import SignoutButton from '../SignoutButton';
 
 export default class NavExample extends React.Component {
   constructor(props) {
@@ -77,14 +78,9 @@ export default class NavExample extends React.Component {
           </Nav>
 
           <Nav navbar className="ml-auto">
-            <InputGroup size="sm" seamless>
-              <InputGroupAddon type="prepend">
-                <InputGroupText>
-                  <FontAwesomeIcon icon={faSearch} />
-                </InputGroupText>
-              </InputGroupAddon>
-              <FormInput className="border-0" placeholder="Search..." />
-            </InputGroup>
+            <NavItem>
+              <SignoutButton />
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

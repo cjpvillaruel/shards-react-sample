@@ -107,7 +107,6 @@ class SignUpFormBase extends Component {
       ? this.validator.validate(this.state) // then check validity every time we render
       : this.state.validation; // otherwise just use what's in state
 
-    console.log(validation);
     return (
       <Card style={{ maxWidth: '400px', margin: '100px auto' }}>
         <CardHeader>
