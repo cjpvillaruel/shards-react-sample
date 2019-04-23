@@ -22,6 +22,7 @@ const PasswordForgetPage = () => (
 
 const INITIAL_STATE = {
   email: '',
+  success: false,
   error: null
 };
 
@@ -39,10 +40,10 @@ class PasswordForgetFormBase extends Component {
     this.props.firebase
       .doPasswordReset(email)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        this.setState({ ...INITIAL_STATE, success: true });
       })
       .catch(error => {
-        this.setState({ error });
+        this.setState({ error, success: false });
       });
   };
 
@@ -51,7 +52,7 @@ class PasswordForgetFormBase extends Component {
   };
 
   render() {
-    const { email, error } = this.state;
+    const { email, error, success } = this.state;
     const isInvalid = email === '';
 
     return (
@@ -63,6 +64,12 @@ class PasswordForgetFormBase extends Component {
           <Form onSubmit={this.onSubmit}>
             {error && (
               <p style={{ color: '#8e1717' }}>{error && error.message}</p>
+            )}
+            {success && (
+              <p style={{ color: 'green' }}>
+                Successfully sent the password reset link! Please check your
+                email.
+              </p>
             )}
             <FormGroup>
               <FormInput
