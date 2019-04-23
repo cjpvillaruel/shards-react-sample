@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
@@ -11,6 +10,7 @@ import * as ROUTES from './constants/routes';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUp';
 import { withAuthentication } from './components/Session';
+import PasswordForgetPage from './components/PasswordForget';
 
 const App = () => {
   return (
@@ -20,6 +20,7 @@ const App = () => {
         <Route path={ROUTES.SIGN_IN} component={LoginPage} />
         <Route path={ROUTES.LOGIN} component={LoginPage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       </div>
     </Router>
   );

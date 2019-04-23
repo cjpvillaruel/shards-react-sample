@@ -204,6 +204,6 @@ const SignUpLink = () => (
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
   </p>
 );
+export default SignUpPage;
 const SignUpForm = withRouter(withFirebase(SignUpFormBase));
 export { SignUpForm, SignUpLink };
-export default SignUpPage;
