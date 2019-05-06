@@ -11,6 +11,7 @@ import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUp';
 import { withAuthentication } from './components/Session';
 import PasswordForgetPage from './components/PasswordForget';
+import AccountSettingsPage from './components/AccountSettings';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path={ROUTES.LOGIN} component={LoginPage} />
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettingsPage} />
       </div>
     </Router>
   );

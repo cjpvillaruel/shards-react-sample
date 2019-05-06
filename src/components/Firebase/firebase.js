@@ -23,6 +23,20 @@ class Firebase {
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
+  getIdToken = () => {
+    console.log('get token');
+    this.auth.currentUser
+      .getIdToken(/* forceRefresh */ true)
+      .then(function(idToken) {
+        // Send token to your backend via HTTPS
+        console.log(idToken);
+        // ...
+      })
+      .catch(function(error) {
+        // Handle error
+      });
+  };
+
   doSignOut = () => this.auth.signOut();
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);

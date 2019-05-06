@@ -117,10 +117,12 @@ const NavigationAuth = ({
         </NavItem>
         <Dropdown open={dropdownOpen} toggle={toggleDropdown}>
           <DropdownToggle nav caret>
-            Dropdown
+            Account
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem>Action</DropdownItem>
+            <DropdownItem>
+              <Link to={ROUTES.ACCOUNT_SETTINGS}> Account Settings</Link>
+            </DropdownItem>
             <DropdownItem>Another action</DropdownItem>
             <DropdownItem>Something else here</DropdownItem>
           </DropdownMenu>
