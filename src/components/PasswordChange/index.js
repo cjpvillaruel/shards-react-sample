@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 
 import { withFirebase } from '../Firebase';
+import {
+  Form,
+  FormInput,
+  FormGroup,
+  Card,
+  CardHeader,
+  CardBody,
+  Button
+} from 'shards-react';
 
 const INITIAL_STATE = {
-  password: '',
+  originalPassword: '',
+  newPassword: '',
   confirmPassword: '',
   error: null,
   success: false
@@ -11,24 +21,38 @@ const INITIAL_STATE = {
 
 class PasswordChangeForm extends Component {
   constructor(props) {
-    super(prosps);
+    super(props);
 
     this.state = { ...INITIAL_STATE };
   }
 
+  validateForm() {
+    const { newPassword, confirmPassword } = this.state;
+    let error = null;
+    if (newPassword !== confirmPassword) {
+      error = {
+        message: "Password doesn't match"
+      };
+      this.setState({ error: error, success: false });
+      return false;
+    }
+    return true;
+  }
   onSubmit = event => {
     event.preventDefault();
-    const { confirmPassword } = this.state;
+    const { newPassword, originalPassword, confirmPassword } = this.state;
     const { firebase } = this.props;
 
-    firebase
-      .doPasswordUpdate(passwordOne)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE, success: true });
-      })
-      .catch(error => {
-        this.setState({ error, success: false });
-      });
+    if (this.validateForm()) {
+      firebase
+        .doPasswordUpdate(newPassword)
+        .then(() => {
+          this.setState({ ...INITIAL_STATE, success: true });
+        })
+        .catch(error => {
+          this.setState({ error, success: false });
+        });
+    }
   };
 
   onChange = event => {
@@ -36,9 +60,16 @@ class PasswordChangeForm extends Component {
   };
 
   render() {
-    const { password, confirmPassword } = this.state;
+    const {
+      newPassword,
+      confirmPassword,
+      originalPassword,
+      error,
+      success
+    } = this.state;
 
-    const isInvalid = password !== confirmPassword || password === '';
+    const isInvalid =
+      newPassword !== confirmPassword || originalPassword === '';
 
     return (
       <Card style={{ maxWidth: '400px', margin: '100px auto' }}>
@@ -54,17 +85,23 @@ class PasswordChangeForm extends Component {
               <p style={{ color: 'green' }}>Successfully changed password!</p>
             )}
             <FormGroup>
+              <label htmlFor="newPassword">New Password</label>
               <FormInput
-                id="password"
-                name="password"
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                value={newPassword}
                 onChange={this.onChange}
                 required
               />
             </FormGroup>
             <FormGroup>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <FormInput
                 id="confirmPassword"
                 name="confirmPassword"
+                type="password"
+                value={confirmPassword}
                 onChange={this.onChange}
                 required
               />
