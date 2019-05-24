@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import Tab from '../Tab';
-import TabMenu from '../Tab/TabMenu';
+import { withAuthorization } from '../Session';
 import PasswordChange from '../PasswordChange';
 
 class AccountSettingsPage extends Component {
@@ -22,4 +21,5 @@ class AccountSettingsPage extends Component {
   }
 }
 
-export default withRouter(AccountSettingsPage);
+const condition = authUser => !!authUser;
+export default withAuthorization(condition)(AccountSettingsPage);
