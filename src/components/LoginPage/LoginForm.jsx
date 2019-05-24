@@ -13,6 +13,7 @@ import {
 import * as ROUTES from '../../constants/routes';
 import { withFirebase } from '../Firebase';
 import { SignUpLink } from '../SignUp';
+import { PasswordForgetLink } from '../PasswordForget';
 
 const INITIAL_STATE = {
   email: '',
@@ -77,6 +78,7 @@ class LoginForm extends Component {
               />
             </FormGroup>
             <SignUpLink />
+            <PasswordForgetLink />
             <Button pill> Login </Button>
           </Form>
         </CardBody>

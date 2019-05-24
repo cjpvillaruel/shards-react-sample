@@ -1,0 +1,26 @@
+.tab-container {
+  .tab-menu-container {
+    button.tab {
+      background: white;
+      border: none;
+      outline: none;
+    }
+    button.tab.active {
+      background: #007bff;
+      color: white;
+    }
+  }
+
+  .tab-content-container {
+    .tab-content.active {
+      background: #007bff;
+      min-height: 100px;
+      color: white;
+    }
+  }
+}
+
+.tab-container .side-tab{
+  
+}
+
