@@ -2,7 +2,6 @@
 .landing-page-container {
   display: flex;
   justify-content: space-between;
-  background-image: url(../../assets/images/landing-page-bg-1.jpg);
   background-size: cover;
 }
 
@@ -80,5 +79,22 @@
   }
   .landing-page-left-sidebar {
     width: 100%;
+  }
+}
+
+.slider-navigation {
+  display: flex;
+  div {
+    height: 4px;
+    width: 36px;
+    opacity: 0.35;
+    margin: 0 4px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+  }
+  
+  div.active, div:hover {
+    background: #029BDF;
+    opacity: 1;
   }
 }

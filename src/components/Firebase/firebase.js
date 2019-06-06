@@ -15,6 +15,7 @@ class Firebase {
     app.initializeApp(config);
 
     this.auth = app.auth();
+    this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
   doCreateUserWithEmailAndPassword = (email, password) =>
@@ -22,6 +23,8 @@ class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
+
+  doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
 
   getIdToken = () => {
     console.log('get token');
