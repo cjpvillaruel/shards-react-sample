@@ -47,7 +47,6 @@ class LandingPage extends Component {
           <h3>Welcome to Monalice Terminal</h3>
 
           <p>Please Login using your existing Globe google account</p>
-          <div className="g-signin2" data-longtitle="true" />
           <SignInGoogle />
         </div>
       </div>
@@ -55,5 +54,4 @@ class LandingPage extends Component {
   }
 }
 
-console.log(BackgroundImgs);
 export default LandingPage;

@@ -18,13 +18,64 @@ class Firebase {
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
+  isUserEqual = (googleUser, firebaseUser) => {
+    if (firebaseUser) {
+      var providerData = firebaseUser.providerData;
+      for (var i = 0; i < providerData.length; i++) {
+        if (
+          providerData[i].providerId === this.googleProvider.PROVIDER_ID &&
+          providerData[i].uid === googleUser.getBasicProfile().getId()
+        ) {
+          // We don't need to reauth the Firebase connection.
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
 
-  doSignInWithGoogle = () => this.auth.signInWithPopup(this.googleProvider);
+  // TODO: refactor google login
+  doSignInWithGoogle = (googleUser, callback) => {
+    // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+    var isUserEqual = this.isUserEqual;
+    const auth = this.auth;
+    const googleProvider = this.googleProvider;
+    var unsubscribe = this.auth.onAuthStateChanged(function(firebaseUser) {
+      unsubscribe();
+      if (firebaseUser) {
+        console.log('a user is logged in');
+      }
+      // Check if we are already signed-in Firebase with the correct user.
+      if (!isUserEqual(googleUser, firebaseUser)) {
+        // Build Firebase credential with the Google ID token.
+        var credential = googleProvider.credential(
+          googleUser.getAuthResponse().id_token
+        );
+        // Sign in with credential from the Google user.
+        auth
+          .signInAndRetrieveDataWithCredential(credential)
+          .then(callback)
+          .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+      } else {
+        console.log('User already signed-in Firebase.');
+      }
+    });
+  };
 
   getIdToken = () => {
     console.log('get token');
