@@ -91,7 +91,11 @@ class Firebase {
       });
   };
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => {
+    this.auth.signOut();
+    let googleAuth = window.gapi.auth2.getAuthInstance();
+    googleAuth.signOut();
+  };
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
