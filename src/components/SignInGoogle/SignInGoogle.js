@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import * as ROUTES from '../../constants/routes';
 import { withFirebase } from '../Firebase';
 import { withRouter } from 'react-router-dom';
-import { generateKeyPair } from 'crypto';
 
 class SignInGoogleBase extends Component {
   constructor(props) {
@@ -41,7 +39,8 @@ class SignInGoogleBase extends Component {
   };
 
   render() {
-    const { error } = this.state;
+    // render error messages
+    // const { error } = this.state;
     return (
       <div
         className="g-signin2"

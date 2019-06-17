@@ -52,8 +52,9 @@ class PasswordForgetFormBase extends Component {
   };
 
   render() {
-    const { email, error, success } = this.state;
-    const isInvalid = email === '';
+    const { error, success } = this.state;
+    // TODO: add validation
+    // const isInvalid = email === '';
 
     return (
       <Card style={{ maxWidth: '400px', margin: '100px auto' }}>

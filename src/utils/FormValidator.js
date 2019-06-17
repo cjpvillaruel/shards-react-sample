@@ -27,7 +27,7 @@ class FormValidator {
         // match the rule.validWhen property, then modify the
         // validation object for the field and set the isValid
         // field to false
-        if (validation_method(field_value, ...args, state) != rule.validWhen) {
+        if (validation_method(field_value, ...args, state) !== rule.validWhen) {
           validation[rule.field] = {
             isInvalid: true,
             message: rule.message

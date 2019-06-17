@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Navbar,
   NavbarToggler,
@@ -16,10 +14,13 @@ import {
   DropdownItem,
   Collapse
 } from 'shards-react';
-
 import { withAuthentication, AuthUserContext } from '../Session';
 import * as ROUTES from '../../constants/routes';
 import SignoutButton from '../SignoutButton';
+
+// for importing icons
+// import { faSearch } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class Navigation extends React.Component {
   constructor(props) {
@@ -79,9 +80,7 @@ const NavigationNonAuth = ({ collapseOpen, toggleNavbar }) => (
     <Collapse open={collapseOpen} navbar>
       <Nav navbar>
         <NavItem>
-          <Link to={ROUTES.SIGN_IN}>
-            <NavLink active> Sign in </NavLink>
-          </Link>
+          <Link to={ROUTES.SIGN_IN}> Sign in </Link>
         </NavItem>
         <NavItem>
           <NavLink href="#" disabled>
@@ -106,9 +105,7 @@ const NavigationAuth = ({
     <Collapse open={collapseOpen} navbar>
       <Nav navbar>
         <NavItem>
-          <Link to={ROUTES.HOME}>
-            <NavLink active> Home </NavLink>
-          </Link>
+          <Link to={ROUTES.HOME}>Home</Link>
         </NavItem>
         <NavItem>
           <NavLink href="#" disabled>

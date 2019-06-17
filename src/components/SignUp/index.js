@@ -134,7 +134,6 @@ class SignUpFormBase extends Component {
                 id="last-name"
                 placeholder="Meyer"
                 name="lastName"
-                invalid={false}
                 onChange={this.onChange}
                 onBlur={this.validate}
                 invalid={validation.lastName.isInvalid}

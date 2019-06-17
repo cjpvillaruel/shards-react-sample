@@ -15,14 +15,17 @@ const withAuthentication = Component => {
 
     componentDidMount() {
       const { firebase } = this.props;
-      this.listener = firebase.auth.onAuthStateChanged(authUser => {
-        if (authUser) this.setState({ authUser });
-        else this.setState({ authUser: null });
-      });
+      if (firebase !== null) {
+        this.listener = firebase.auth.onAuthStateChanged(authUser => {
+          if (authUser) this.setState({ authUser });
+          else this.setState({ authUser: null });
+        });
+      }
     }
 
     componentWillUnmount() {
-      this.listener();
+      const { firebase } = this.props;
+      if (firebase !== null) this.listener();
     }
 
     render() {
@@ -37,7 +40,11 @@ const withAuthentication = Component => {
   }
 
   WithAuthentication.propTypes = {
-    firebase: PropTypes.shape({}).isRequired
+    firebase: PropTypes.shape({})
+  };
+
+  WithAuthentication.defaultProps = {
+    firebase: null
   };
 
   return withFirebase(WithAuthentication);

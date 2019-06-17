@@ -40,7 +40,7 @@ class PasswordChangeForm extends Component {
   }
   onSubmit = event => {
     event.preventDefault();
-    const { newPassword, originalPassword, confirmPassword } = this.state;
+    const { newPassword } = this.state;
     const { firebase } = this.props;
 
     if (this.validateForm()) {
@@ -60,16 +60,11 @@ class PasswordChangeForm extends Component {
   };
 
   render() {
-    const {
-      newPassword,
-      confirmPassword,
-      originalPassword,
-      error,
-      success
-    } = this.state;
+    const { newPassword, confirmPassword, error, success } = this.state;
 
-    const isInvalid =
-      newPassword !== confirmPassword || originalPassword === '';
+    // for validation
+    // const isInvalid =
+    //   newPassword !== confirmPassword || originalPassword === '';
 
     return (
       <Card style={{ maxWidth: '400px', margin: '100px auto' }}>
