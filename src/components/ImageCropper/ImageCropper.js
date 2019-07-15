@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import croppie from 'croppie/croppie';
 import 'croppie/croppie.css';
+import SampleImage from '../../assets/images/landing-page-bg-2.jpg';
 
 class ImageCropper extends Component {
   constructor(props) {
@@ -16,8 +17,7 @@ class ImageCropper extends Component {
     if (this.imageDiv.current !== null && croppie) {
       const imageDiv = this.imageDiv.current;
       croppie(imageDiv, {
-        url:
-          'http://localhost:3000/static/media/landing-page-bg-1.f40e0f4b.jpg',
+        url: SampleImage,
         viewport: { width: 300, height: 200 },
         boundary: { width: 400, height: 300 }
       });
