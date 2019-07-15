@@ -13,6 +13,7 @@ import { withAuthentication } from './components/Session';
 import PasswordForgetPage from './components/PasswordForget';
 import AccountSettingsPage from './components/AccountSettings';
 import LandingPage from './components/LandingPage';
+import ImageCropper from './components/ImageCropper';
 
 const App = () => {
   return (
@@ -24,7 +25,8 @@ const App = () => {
         <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
         <Route path={ROUTES.ACCOUNT_SETTINGS} component={AccountSettingsPage} />
-        <Route path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.IMAGE_CROPPER} component={ImageCropper} />
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
       </div>
     </Router>
   );

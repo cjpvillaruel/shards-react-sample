@@ -120,7 +120,9 @@ const NavigationAuth = ({
             <DropdownItem>
               <Link to={ROUTES.ACCOUNT_SETTINGS}> Account Settings</Link>
             </DropdownItem>
-            <DropdownItem>Another action</DropdownItem>
+            <DropdownItem>
+              <Link to={ROUTES.IMAGE_CROPPER}> Crop Picture</Link>
+            </DropdownItem>
             <DropdownItem>Something else here</DropdownItem>
           </DropdownMenu>
         </Dropdown>

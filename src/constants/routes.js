@@ -7,3 +7,4 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const ACCOUNT_SETTINGS = '/account-settings';
+export const IMAGE_CROPPER = '/image-cropper';
